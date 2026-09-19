@@ -1,0 +1,21 @@
+# Secrets
+.env
+*.session
+*.session-journal
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+
+# Docker / Caddy
+caddy_data/
+caddy_config/
+
+# OS
+.DS_Store

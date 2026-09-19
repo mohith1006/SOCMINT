@@ -1,0 +1,73 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: socmint
+      POSTGRES_PASSWORD: socmint
+      POSTGRES_DB: socmint
+    volumes:
+      - socmint_pgdata:/var/lib/postgresql/data
+    networks:
+      - socmint_internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U socmint"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - socmint_internal
+    # Not exposed to the host directly — Zero Trust: only the reverse proxy
+    # is internet-facing; all internal traffic stays on the internal network.
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Threaded from the top-level .env (Compose auto-loads it for
+        # ${...} substitution here, separately from any service's
+        # env_file:) so a real config change actually takes effect on
+        # the next `docker compose build`, instead of silently falling
+        # back to the Dockerfile's hardcoded default.
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    depends_on:
+      - backend
+    networks:
+      - socmint_internal
+    expose:
+      - "5173"
+
+  reverse-proxy:
+    image: caddy:2-alpine
+    volumes:
+      - ./reverse-proxy/Caddyfile:/etc/caddy/Caddyfile
+      - socmint_caddy_data:/data
+      - socmint_caddy_config:/config
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - socmint_internal
+
+networks:
+  socmint_internal:
+    driver: bridge
+
+volumes:
+  socmint_pgdata:
+  socmint_caddy_data:
+  socmint_caddy_config:

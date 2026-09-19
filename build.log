@@ -1,0 +1,116 @@
+ Image socmint-backend Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 613B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.78kB done
+#2 DONE 0.0s
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 1.2s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 2.20kB done
+#6 DONE 0.0s
+
+#7 [1/8] FROM docker.io/library/python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+#7 resolve docker.io/library/python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea 0.0s done
+#7 DONE 0.0s
+
+#8 [3/8] RUN apt-get update && apt-get install -y --no-install-recommends     gcc libpq-dev curl     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [4/8] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/8] RUN grep '^torch==' requirements.txt | xargs -I{} pip install --no-cache-dir {} --index-url https://download.pytorch.org/whl/cpu
+#10 CACHED
+
+#11 [2/8] WORKDIR /app
+#11 CACHED
+
+#12 [6/8] RUN pip install --no-cache-dir -r requirements.txt
+#12 CACHED
+
+#13 [7/8] RUN python -c "from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer; pipeline('text-classification', model='SamLowe/roberta-base-go_emotions', top_k=1); pipeline('text-classification', model='cardiffnlp/twitter-xlm-roberta-base-sentiment', top_k=1); pipeline('zero-shot-classification', model='MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'); AutoTokenizer.from_pretrained('helinivan/english-sarcasm-detector'); AutoModelForSequenceClassification.from_pretrained('helinivan/english-sarcasm-detector')"
+#13 48.98 /usr/local/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+#13 48.98   warnings.warn(
+#13 145.4 Traceback (most recent call last):
+#13 145.4   File "<string>", line 1, in <module>
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 994, in pipeline
+#13 145.4     tokenizer = AutoTokenizer.from_pretrained(
+#13 145.4                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/models/auto/tokenization_auto.py", line 916, in from_pretrained
+#13 145.4     return tokenizer_class_fast.from_pretrained(pretrained_model_name_or_path, *inputs, **kwargs)
+#13 145.4            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 2271, in from_pretrained
+#13 145.4     return cls._from_pretrained(
+#13 145.4            ^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 2505, in _from_pretrained
+#13 145.4     tokenizer = cls(*init_inputs, **init_kwargs)
+#13 145.4                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/models/xlm_roberta/tokenization_xlm_roberta_fast.py", line 108, in __init__
+#13 145.4     super().__init__(
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/tokenization_utils_fast.py", line 118, in __init__
+#13 145.4     fast_tokenizer = convert_slow_tokenizer(slow_tokenizer)
+#13 145.4                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/convert_slow_tokenizer.py", line 1597, in convert_slow_tokenizer
+#13 145.4     return converter_class(transformer_tokenizer).converted()
+#13 145.4            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/convert_slow_tokenizer.py", line 538, in __init__
+#13 145.4     requires_backends(self, "protobuf")
+#13 145.4   File "/usr/local/lib/python3.12/site-packages/transformers/utils/import_utils.py", line 1531, in requires_backends
+#13 145.4     raise ImportError("".join(failed))
+#13 145.4 ImportError: 
+#13 145.4 XLMRobertaConverter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+#13 145.4 installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+#13 145.4 that match your environment. Please note that you may need to restart your runtime after installation.
+#13 145.4 
+#13 ERROR: process "/bin/sh -c python -c \"from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer; pipeline('text-classification', model='SamLowe/roberta-base-go_emotions', top_k=1); pipeline('text-classification', model='cardiffnlp/twitter-xlm-roberta-base-sentiment', top_k=1); pipeline('zero-shot-classification', model='MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'); AutoTokenizer.from_pretrained('helinivan/english-sarcasm-detector'); AutoModelForSequenceClassification.from_pretrained('helinivan/english-sarcasm-detector')\"" did not complete successfully: exit code: 1
+------
+ > [7/8] RUN python -c "from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer; pipeline('text-classification', model='SamLowe/roberta-base-go_emotions', top_k=1); pipeline('text-classification', model='cardiffnlp/twitter-xlm-roberta-base-sentiment', top_k=1); pipeline('zero-shot-classification', model='MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'); AutoTokenizer.from_pretrained('helinivan/english-sarcasm-detector'); AutoModelForSequenceClassification.from_pretrained('helinivan/english-sarcasm-detector')":
+145.4            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+145.4   File "/usr/local/lib/python3.12/site-packages/transformers/convert_slow_tokenizer.py", line 538, in __init__
+145.4     requires_backends(self, "protobuf")
+145.4   File "/usr/local/lib/python3.12/site-packages/transformers/utils/import_utils.py", line 1531, in requires_backends
+145.4     raise ImportError("".join(failed))
+145.4 ImportError: 
+145.4 XLMRobertaConverter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+145.4 installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+145.4 that match your environment. Please note that you may need to restart your runtime after installation.
+145.4 
+------
+Dockerfile:23
+
+--------------------
+
+  22 |     # Keep this list in sync with the model names hardcoded in app/ml/*.py.
+
+  23 | >>> RUN python -c "\
+
+  24 | >>> from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer; \
+
+  25 | >>> pipeline('text-classification', model='SamLowe/roberta-base-go_emotions', top_k=1); \
+
+  26 | >>> pipeline('text-classification', model='cardiffnlp/twitter-xlm-roberta-base-sentiment', top_k=1); \
+
+  27 | >>> pipeline('zero-shot-classification', model='MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'); \
+
+  28 | >>> AutoTokenizer.from_pretrained('helinivan/english-sarcasm-detector'); \
+
+  29 | >>> AutoModelForSequenceClassification.from_pretrained('helinivan/english-sarcasm-detector')"
+
+  30 |     
+
+--------------------
+
+failed to solve: process "/bin/sh -c python -c \"from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer; pipeline('text-classification', model='SamLowe/roberta-base-go_emotions', top_k=1); pipeline('text-classification', model='cardiffnlp/twitter-xlm-roberta-base-sentiment', top_k=1); pipeline('zero-shot-classification', model='MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'); AutoTokenizer.from_pretrained('helinivan/english-sarcasm-detector'); AutoModelForSequenceClassification.from_pretrained('helinivan/english-sarcasm-detector')\"" did not complete successfully: exit code: 1
+

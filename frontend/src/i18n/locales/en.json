@@ -1,0 +1,223 @@
+{
+  "app": {
+    "name": "SOCMINT",
+    "tagline": "SIH26152 Social Media Analytics"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "live": "Live Monitoring",
+    "network": "Network Intelligence",
+    "sentiment": "Sentiment Timeline",
+    "trends": "Trends",
+    "demographics": "Demographics",
+    "ledger": "Ledger / Audit Trail",
+    "admin": "Admin",
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign in to SOCMINT",
+      "email": "Email",
+      "passcode": "Passcode",
+      "continue": "Continue",
+      "noAccount": "No account?",
+      "requestOne": "Request one",
+      "forgotPasscode": "Forgot your passcode?",
+      "mfaScanHint": "Scan with an authenticator app (first login only):",
+      "mfaCodePlaceholder": "6-digit authenticator code",
+      "verifyAndSignIn": "Verify & sign in",
+      "invalidCredentials": "Invalid credentials.",
+      "invalidMfa": "Invalid MFA code."
+    },
+    "signUp": {
+      "title": "Create SOCMINT account",
+      "hint": "Accounts require Admin approval before sign-in is possible.",
+      "email": "Email",
+      "fullName": "Full name",
+      "organisation": "Organisation",
+      "phoneNumber": "Phone number",
+      "passcodePlaceholder": "Passcode (12+ chars, mixed case, digit, symbol)",
+      "submit": "Submit for approval",
+      "submittedTitle": "Request submitted",
+      "submittedBody": "Your account is pending Admin approval. You'll be able to sign in once approved.",
+      "backToSignIn": "Back to sign in",
+      "alreadyApproved": "Already approved?",
+      "signIn": "Sign in",
+      "genericError": "Sign-up failed."
+    },
+    "forgotPassword": {
+      "title": "Reset your passcode",
+      "hint": "Enter the email on your account and we'll send a reset link, if it exists.",
+      "submit": "Send reset link",
+      "submittedBody": "If that email has an active account, a reset link has been sent. Check your inbox.",
+      "genericError": "Something went wrong. Try again."
+    },
+    "resetPassword": {
+      "title": "Set a new passcode",
+      "missingToken": "This link is missing its reset token — use the link from your email exactly as sent.",
+      "submit": "Set new passcode",
+      "done": "Passcode reset. Redirecting to sign in...",
+      "genericError": "This reset link is invalid or has expired — request a new one."
+    }
+  },
+  "settings": {
+    "changePasscode": {
+      "title": "Change passcode",
+      "current": "Current passcode",
+      "submit": "Change passcode",
+      "success": "Passcode changed.",
+      "genericError": "Could not change passcode."
+    }
+  },
+  "network": {
+    "runAnalysis": "Run analysis",
+    "running": "Running...",
+    "emptyState": "No interaction data yet — run the synthetic data generator or wait for ingestion to populate the interaction graph.",
+    "nodeDetails": {
+      "title": "Node details",
+      "selectHint": "Click a node to see its scores.",
+      "pagerank": "PageRank",
+      "betweenness": "Betweenness",
+      "eigenvector": "Eigenvector",
+      "degree": "Degree",
+      "influence": "Influence score",
+      "community": "Community"
+    },
+    "modeComputed": "computed from live interaction data",
+    "modeStatic": "no interaction data yet",
+    "causalImpact": {
+      "title": "Causal Impact (top spreaders)",
+      "compute": "Compute causal impact",
+      "computing": "Computing...",
+      "empty": "No causal impact scores yet — run the graph analysis first, then compute causal impact.",
+      "columns": {
+        "node": "Node",
+        "score": "Causal impact score"
+      }
+    },
+    "propagation": {
+      "title": "Propagation Replay",
+      "selectTopic": "Select a topic",
+      "noTopics": "No topics yet — run trend detection first.",
+      "play": "Play",
+      "pause": "Pause",
+      "reset": "Reset",
+      "frame": "Frame {{current}} / {{total}}",
+      "communitiesReached": "Communities reached",
+      "reach": "Accounts reached",
+      "sentiment": "Sentiment",
+      "empty": "This topic has no time-ordered post data to replay yet."
+    }
+  },
+  "trends": {
+    "runDetection": "Run trend detection",
+    "detecting": "Detecting...",
+    "emptyState": "No trending topics yet — run the synthetic data generator, then Run trend detection.",
+    "columns": {
+      "topic": "Topic",
+      "velocity": "Velocity score",
+      "mentionsToday": "Mentions today"
+    }
+  },
+  "sentiment": {
+    "runProcessing": "Run NLP processing",
+    "processing": "Processing...",
+    "emptyState": "No scored posts yet — run the synthetic data generator, then Run NLP processing to classify them.",
+    "filters": {
+      "region": "Region",
+      "allRegions": "All regions",
+      "india": "India-associated",
+      "unclassified": "Unclassified"
+    },
+    "buckets": {
+      "happy": "Happy",
+      "joyful": "Joyful",
+      "sad": "Sad",
+      "angry": "Angry",
+      "low_mood_distress_signal": "Low mood / distress signal"
+    },
+    "sarcasmNote": "Sarcasm detection runs per-post (English only, explicitly experimental) but isn't surfaced in this aggregate timeline view."
+  },
+  "demographics": {
+    "runCompute": "Run demographic aggregation",
+    "computing": "Computing...",
+    "emptyState": "No demographic aggregates yet — run network analysis first (communities are required), then Run demographic aggregation.",
+    "privacyNote": "Aggregate-only, per community, with differential-privacy-style noise applied — never tied to an individual user. Small groups are suppressed entirely rather than shown with low confidence.",
+    "dimensions": {
+      "language": "Language",
+      "region": "Region",
+      "age_bracket": "Age bracket"
+    },
+    "columns": {
+      "community": "Community",
+      "value": "Value",
+      "pct": "%"
+    }
+  },
+  "ledger": {
+    "title": "Ledger / Audit Trail",
+    "verify": "Verify Integrity",
+    "verifying": "Verifying...",
+    "validMsg": "Chain verified — all blocks intact.",
+    "brokenMsg": "Chain integrity BROKEN at block index {{index}}.",
+    "columns": {
+      "index": "#",
+      "event": "Event",
+      "timestamp": "Timestamp",
+      "hash": "Hash",
+      "prevHash": "Prev Hash"
+    },
+    "loadMore": "Load more",
+    "loadingMore": "Loading..."
+  },
+  "admin": {
+    "title": "Admin — Pending Approvals",
+    "noPending": "No pending sign-up requests.",
+    "requested": "Requested",
+    "approve": "Approve",
+    "reject": "Reject",
+    "rejectPrompt": "Reason for rejection (optional):",
+    "loadError": "Failed to load pending users (Admin role required)."
+  },
+  "stub": {
+    "live": {
+      "modeLabel": "Mode",
+      "modeNote": "never silently substituted for live data",
+      "body": "Real-time X/Telegram feed, live counters, and the India Mood emotion panel stream in here once the live ingestion pipeline is connected."
+    },
+    "network": {
+      "body": "Graph view, centrality filters, node detail panel, and Propagation Replay render here once graph construction and causal influence scoring are implemented."
+    },
+    "sentiment": {
+      "body": "Sentiment/emotion time series, filterable by community, topic, and India-association tag, once the multilingual NLP pipeline is wired in."
+    },
+    "trends": {
+      "body": "Ranked current and predicted-rising topics, velocity-scored rather than volume-ranked, once trend detection is implemented."
+    },
+    "demographics": {
+      "body": "Aggregate-only charts per community — never a per-user demographic label — with calibrated noise applied, once demographic aggregation is implemented."
+    },
+    "settings": {
+      "body": "Role management, ingestion job status, influence-score weight configuration, and MFA management land here as remaining build steps are completed."
+    }
+  },
+  "dashboard": {
+    "subtitle": "A snapshot of what's currently in the system.",
+    "loading": "Loading dashboard...",
+    "totalPosts": "Total posts",
+    "livePosts": "Live posts",
+    "syntheticPosts": "Synthetic posts",
+    "activeTrends": "Active trends",
+    "ledgerStatus": "Ledger status",
+    "ledgerValid": "Verified, intact",
+    "ledgerBroken": "Tampering detected at block {{index}}",
+    "blockCount": "{{count}} blocks",
+    "totalUsers": "Platform users",
+    "pendingApprovals": "Pending approvals",
+    "loadError": "Couldn't load dashboard data. Try refreshing."
+  }
+}

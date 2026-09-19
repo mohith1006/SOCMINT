@@ -1,0 +1,37 @@
+# Local dev: Caddy auto-generates a self-signed cert for `localhost`.
+# For a real deployment, replace `localhost` below with your real domain —
+# Caddy will automatically provision a Let's Encrypt certificate for it.
+
+{
+	# Only negotiate TLS 1.3 — reject TLS 1.2 and below everywhere.
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+localhost {
+	tls internal {
+		protocols tls1.3 tls1.3
+	}
+
+	encode gzip
+
+	# HSTS + security headers
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+
+	handle_path /api/* {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		reverse_proxy frontend:5173
+	}
+}
+
+# Plain HTTP is redirected to HTTPS automatically by Caddy's default behavior
+# once a site block above declares TLS.
